@@ -20,9 +20,8 @@ PROMPT_FORMAT = """Below is an instruction that describes a task. Write a respon
 
 def generate_response(
     instruction: str, 
-    *, 
-    model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
+    model: PreTrainedModel,
     do_sample: bool = True,
     max_new_tokens: int = 256,
     top_p: float = 0.92,
@@ -35,8 +34,16 @@ def generate_response(
     response_key_token_id = tokenizer.encode("### Response:")[0]
     end_key_token_id = tokenizer.encode("### End")[0]
 
-    gen_tokens = model.generate(input_ids, pad_token_id=tokenizer.pad_token_id, eos_token_id=end_key_token_id,
-                                do_sample=do_sample, max_new_tokens=max_new_tokens, top_p=top_p, top_k=top_k, **kwargs)[0].cpu()
+    gen_tokens = model.generate(
+        input_ids,
+        pad_token_id=tokenizer.pad_token_id,
+        eos_token_id=end_key_token_id,
+        do_sample=do_sample,
+        max_new_tokens=max_new_tokens,
+        top_p=top_p,
+        top_k=top_k,
+        **kwargs
+    )[0].cpu()
 
     # find where the response begins
     response_positions = np.where(gen_tokens == response_key_token_id)[0]
@@ -53,6 +60,7 @@ def generate_response(
         return tokenizer.decode(gen_tokens[response_pos + 1 : end_pos]).strip()
 
     return None
+
 
 # Sample similar to: "Excited to announce the release of Dolly, a powerful new language model from Databricks! #AI #Databricks"
 generate_response(

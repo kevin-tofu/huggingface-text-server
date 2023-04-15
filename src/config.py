@@ -2,7 +2,7 @@ import os
 from typing import NamedTuple
 
 
-_PROMPT = """Below is an instruction that describes a task. Write a response that appropriately completes the request.
+_PROMPT_FMT = """Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 {instruction}
@@ -11,7 +11,7 @@ _PROMPT = """Below is an instruction that describes a task. Write a response tha
 
 """
 
-_PROMPT = """Below is an instruction that describes a task. Write a response that appropriately completes the request.
+_PROMPT_FMT = """Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 {instruction}
@@ -29,29 +29,22 @@ APP_PORT = os.getenv('APP_PORT', 8000)
 # PATH_MODEL = os.getenv('PATH_MODEL', './model/model.onnx')
 
 TOKENIZER_NAME = os.getnev('TOKENIZER_NAME', 'databricks/dolly-v1-6b')
-MODEL_NAME = os.getnev('TOKENIZER_NAME', 'databricks/dolly-v1-6b')
-PROMPT = os.getenv('PROMPT', _PROMPT)
+MODEL_NAME = os.getnev('MODEL_NAME', 'databricks/dolly-v1-6b')
+PROMPT_FMT = os.getenv('PROMPT', _PROMPT_FMT)
 
 GPU = os.getenv('GPU', "-1")
-
-# config = dict(
-#     PATH_DATA = PATH_DATA,
-#     PATH_MODEL = PATH_MODEL,
-#     DELETE_INTERVAL = DELETE_INTERVAL
-# )
-
 
 class Config(NamedTuple):
     app_port: int
     tokenizer_name: str
     model_name: str
-    prompt: str
+    prompt_fmt: str
     gpu: str
 
 config_org = Config(
     APP_PORT,
     TOKENIZER_NAME,
     MODEL_NAME,
-    PROMPT,
+    PROMPT_FMT,
     GPU
 )
