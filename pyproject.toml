@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "huggingface-text-server"
+version = "0.1.0"
+description = ""
+authors = ["kohei <koheitech001@gmail.com>"]
+license = "Apach-2.0"
+readme = "README.md"
+packages = [{include = "huggingface_text_server"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.1"
+uvicorn = "^0.21.1"
+transformers = "^4.28.1"
+torch = "^2.0.0"
+accelerate = "^0.18.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
