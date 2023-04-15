@@ -12,9 +12,17 @@ python = "^3.10"
 fastapi = "^0.95.1"
 uvicorn = "^0.21.1"
 transformers = "^4.28.1"
-torch = "^2.0.0"
 accelerate = "^0.18.0"
+sentencepiece = "^0.1.98"
+protobuf = "3.20"
+torch = "^2.0.0+cpu"
 
+
+[[tool.poetry.source]]
+name = "torch"
+url = "https://download.pytorch.org/whl/cpu"
+default = false
+secondary = false
 
 [build-system]
 requires = ["poetry-core"]
