@@ -22,9 +22,18 @@ tokenizer = AutoTokenizer.from_pretrained(
 model = AutoModelForCausalLM.from_pretrained(
     config_org.model_name,
     device_map="auto",
-    low_cpu_mem_usage=True,
     trust_remote_code=True
 ).to(device)
+
+from instruct_pipeline import InstructionTextGenerationPipeline
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+# tokenizer = AutoTokenizer.from_pretrained("databricks/dolly-v2-12b", padding_side="left")
+# model = AutoModelForCausalLM.from_pretrained("databricks/dolly-v2-12b", device_map="auto")
+
+generate_text = InstructionTextGenerationPipeline(model=model, tokenizer=tokenizer)
+
+
 
 
 # tokenizer = AutoTokenizer.from_pretrained(
@@ -37,25 +46,21 @@ model = AutoModelForCausalLM.from_pretrained(
 
 
 
-# PROMPT_FORMAT = """Below is an instruction that describes a task. Write a response that appropriately completes the request.
+PROMPT_FORMAT = """Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
-# ### Instruction:
-# {instruction}
+### Instruction:
+{instruction}
 
-# ### Response:
-# """
+### Response:
+"""
 
-PROMPT_FORMAT = r'<s>\n以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。\n[SEP]\n指示:\n{instruction}\n[SEP]\n入力:\n{input}\n[SEP]\n応答:\n'
-# INSTRUCTION = 'あなたは文脈をもとに'
-INSTRUCTION = "あなたは何でも正確に答えられるAIです。"
-# INPUT = '将棋界最強の男は誰？.'
-INPUT = '日本で一番高い山は？'
+INSTRUCTION = "What is the tallest mountain in the world?"
 
-prompt = PROMPT_FORMAT.format(instruction=INSTRUCTION, input=INPUT), 
+prompt = PROMPT_FORMAT.format(instruction=INSTRUCTION) 
 print('prompt:', prompt)
 
 # Sample similar to: "Excited to announce the release of Dolly, a powerful new language model from Databricks! #AI #Databricks"
-completion = functions.generate_response(
+completion = functions.generate_test(
     prompt,
     model=model,
     tokenizer=tokenizer

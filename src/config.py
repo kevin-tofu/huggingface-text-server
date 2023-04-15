@@ -28,8 +28,17 @@ APP_PORT = os.getenv('APP_PORT', 8000)
 # PATH_DATA = os.getenv('PATH_DATA', './temp')
 # PATH_MODEL = os.getenv('PATH_MODEL', './model/model.onnx')
 
-TOKENIZER_NAME = os.getnev('TOKENIZER_NAME', 'databricks/dolly-v1-6b')
-MODEL_NAME = os.getnev('MODEL_NAME', 'databricks/dolly-v1-6b')
+# TOKENIZER_NAME = os.getenv('TOKENIZER_NAME', 'databricks/dolly-v1-6b')
+# MODEL_NAME = os.getenv('MODEL_NAME', 'databricks/dolly-v1-6b')
+# MODEL_NAME = os.getenv('MODEL_NAME', 'geemili/dolly-v2-12b')
+
+TOKENIZER_NAME = os.getenv('TOKENIZER_NAME', 'databricks/dolly-v2-12b')
+MODEL_NAME = os.getenv('MODEL_NAME', 'databricks/dolly-v2-12b')
+
+
+# TOKENIZER_NAME = os.getenv('TOKENIZER_NAME', 'inu-ai/dolly-japanese-gpt-1b')
+# MODEL_NAME = os.getenv('MODEL_NAME', 'inu-ai/dolly-japanese-gpt-1b')
+
 PROMPT_FMT = os.getenv('PROMPT', _PROMPT_FMT)
 
 GPU = os.getenv('GPU', "-1")
