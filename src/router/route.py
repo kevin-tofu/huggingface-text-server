@@ -22,3 +22,17 @@ def completion(
     
     # return await handler.post_file("transfer-image", file, "jpg", bgtask, **params)
     return myhandler.post_text("completion", **params)
+
+
+@router.post('/completion')
+def completion(
+    params: dict = Depends(params_completion)
+):
+    """
+    Post an image(.jpg ) to make it artistic-style. 
+    You can get the artistic-style image using GET /image API. 
+    """
+    
+    # return await handler.post_file("transfer-image", file, "jpg", bgtask, **params)
+    return myhandler.post_text("completion", **params)
+
