@@ -1,3 +1,5 @@
+import sys
+sys.path.append('src')
 
 import numpy as np
 from transformers import (
@@ -5,17 +7,15 @@ from transformers import (
     AutoTokenizer,
     pipeline
 )
-from instruct_pipeline import InstructionTextGenerationPipeline
-
+# from .controller.instruct_pipeline import InstructionTextGenerationPipeline
 import torch
-import sys
-sys.path.append('src')
 
 from controller import functions
 from config import config_org
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 # tokenizer = AutoTokenizer.from_pretrained(
 #     config_org.tokenizer_name,
 #     padding_side="left"
@@ -30,18 +30,18 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 generate_text = pipeline(
-    model="databricks/dolly-v2-12b", 
+    model=config_org.model_name, 
     torch_dtype=torch.bfloat16, 
     trust_remote_code=True,
     device_map="auto"
 )
-
+generate_text("Explain to me the difference between nuclear fission and fusion.")
 
 
 # tokenizer = AutoTokenizer.from_pretrained("databricks/dolly-v2-12b", padding_side="left")
 # model = AutoModelForCausalLM.from_pretrained("databricks/dolly-v2-12b", device_map="auto")
 
-generate_text = InstructionTextGenerationPipeline(model=model, tokenizer=tokenizer)
+# generate_text = InstructionTextGenerationPipeline(model=model, tokenizer=tokenizer)
 
 
 
